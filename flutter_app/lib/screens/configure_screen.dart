@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:xterm/xterm.dart';
 import 'package:flutter_pty/flutter_pty.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../l10n/app_localizations.dart';
 import '../services/native_bridge.dart';
 import '../services/screenshot_service.dart';
 import '../services/terminal_service.dart';
@@ -193,16 +194,17 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
     final text = _getSelectedText();
     if (text == null) return;
 
+    final l10n = AppLocalizations.of(context)!;
     Clipboard.setData(ClipboardData(text: text));
 
     final url = _extractUrl(text);
     if (url != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Copied to clipboard'),
+          content: Text(l10n.copiedToClipboard),
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Open',
+            label: l10n.open,
             onPressed: () {
               final uri = Uri.tryParse(url);
               if (uri != null) {
@@ -214,9 +216,9 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Copied to clipboard'),
-          duration: Duration(seconds: 1),
+        SnackBar(
+          content: Text(l10n.copiedToClipboard),
+          duration: const Duration(seconds: 1),
         ),
       );
     }
@@ -226,6 +228,7 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
     final text = _getSelectedText();
     if (text == null) return;
 
+    final l10n = AppLocalizations.of(context)!;
     final url = _extractUrl(text);
     if (url != null) {
       final uri = Uri.tryParse(url);
@@ -235,9 +238,9 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
       }
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('No URL found in selection'),
-        duration: Duration(seconds: 1),
+      SnackBar(
+        content: Text(l10n.noUrlFound),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
@@ -250,22 +253,25 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
   }
 
   Future<void> _takeScreenshot() async {
+    final l10n = AppLocalizations.of(context)!;
     final path = await ScreenshotService.capture(_screenshotKey, prefix: 'configure');
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(path != null
-            ? 'Screenshot saved: ${path.split('/').last}'
-            : 'Failed to capture screenshot'),
+            ? l10n.screenshotSaved(path.split('/').last)
+            : l10n.failedToCaptureScreenshot),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OpenClaw Configure'),
+        title: Text(l10n.openclawConfigure),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -274,22 +280,22 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.camera_alt_outlined),
-            tooltip: 'Screenshot',
+            tooltip: l10n.screenshot,
             onPressed: _takeScreenshot,
           ),
           IconButton(
             icon: const Icon(Icons.copy),
-            tooltip: 'Copy',
+            tooltip: l10n.copy,
             onPressed: _copySelection,
           ),
           IconButton(
             icon: const Icon(Icons.open_in_browser),
-            tooltip: 'Open URL',
+            tooltip: l10n.openUrl,
             onPressed: _openSelection,
           ),
           IconButton(
             icon: const Icon(Icons.paste),
-            tooltip: 'Paste',
+            tooltip: l10n.paste,
             onPressed: _paste,
           ),
         ],
@@ -297,14 +303,14 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
       body: Column(
         children: [
           if (_loading)
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
-                    Text('Starting configure...'),
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
+                    Text(l10n.startingConfigure),
                   ],
                 ),
               ),
@@ -339,7 +345,7 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
                           _startConfigure();
                         },
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
+                        label: Text(l10n.retry),
                       ),
                     ],
                   ),
@@ -376,7 +382,7 @@ class _ConfigureScreenState extends State<ConfigureScreen> {
                 child: FilledButton.icon(
                   onPressed: () => Navigator.of(context).pop(),
                   icon: const Icon(Icons.check),
-                  label: const Text('Done'),
+                  label: Text(l10n.done),
                 ),
               ),
             ),

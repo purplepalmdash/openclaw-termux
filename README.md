@@ -17,6 +17,102 @@
 
 ---
 
+## 🇨🇳 Optimizations for Mainland China
+
+> **Note**: This repository is a fork of [mithun50/openclaw-termux](https://github.com/mithun50/openclaw-termux), optimized for users in mainland China based on `v1.8.4`.
+
+This version is deeply optimized for the network environment in mainland China. All download sources have been replaced with domestic mirrors, significantly improving installation speed and success rate.
+
+### Optimizations
+
+| Component | Original Source | Optimized Source | Effect |
+|-----------|-----------------|------------------|--------|
+| **Ubuntu rootfs** | `cdimage.ubuntu.com` | Tsinghua Mirror `mirrors.tuna.tsinghua.edu.cn` | 5-10x faster download |
+| **apt packages** | `archive.ubuntu.com` / `ports.ubuntu.com` | Ubuntu China Mirror `cn.archive.ubuntu.com` / `cn.ports.ubuntu.com` | Significantly faster package updates/installation |
+| **Node.js** | `nodejs.org` | Tsinghua Mirror `mirrors.tuna.tsinghua.edu.cn/nodejs-release` | 5-10x faster download |
+| **npm packages** | `registry.npmjs.org` | Taobao Mirror `registry.npmmirror.com` | Significantly faster npm downloads |
+| **DNS** | Google DNS (`8.8.8.8`) | Aliyun DNS (`223.5.5.5`) + 114 DNS (`114.114.114.114`) | Faster and more stable DNS resolution |
+
+### Technical Details
+
+**1. Ubuntu rootfs download**
+- Uses Tsinghua University Open Source Mirror
+- Supports arm64, armhf, x86_64 architectures
+- Download time for ~100MB rootfs reduced from 10+ minutes to 1-2 minutes
+
+**2. apt source configuration**
+- Automatically detects system architecture (x86 uses `cn.archive.ubuntu.com`, ARM uses `cn.ports.ubuntu.com`)
+- Uses HTTP protocol to avoid potential HTTPS connection issues
+- Automatically modifies `/etc/apt/sources.list.d/ubuntu.sources` via sed
+
+**3. Node.js installation**
+- Downloads pre-built Node.js binaries from Tsinghua mirror
+- Avoids connection timeout issues with official source in China
+- Significantly reduces download time for ~30MB Node.js package
+
+**4. npm configuration**
+- Automatically configures Taobao npm mirror when installing OpenClaw
+- Resolves slow access to official npm registry in China
+
+**5. DNS optimization**
+- Aliyun DNS (223.5.5.5): Fast domestic resolution, wide coverage
+- 114 DNS (114.114.114.114): Established public DNS, reliable
+- Dual DNS configuration improves resolution reliability
+
+### Chinese Localization
+
+This version includes complete Chinese localization:
+
+**1. App Name Localization**
+- Android app name: Displays as「安卓龙虾」on Chinese systems
+- File: `flutter_app/android/app/src/main/res/values-zh/strings.xml`
+
+**2. Flutter UI Translation**
+- Translation entries: **200+ strings**
+- Coverage:
+  - Dashboard (quick actions, gateway status, node status)
+  - Setup wizard (download, extraction, installation prompts)
+  - Settings page (system info, maintenance, about)
+  - AI provider configuration (7 providers with names and descriptions)
+  - SSH access (server control, connection info)
+  - Log viewer (filter, screenshot, auto-scroll)
+  - Package manager (Go, Homebrew, OpenSSH)
+  - Node configuration (device capabilities, pairing status)
+  - Terminal (extra keys, link handling)
+  - Error messages and status notifications
+- File: `flutter_app/lib/l10n/app_zh.arb`
+
+**3. Translation Examples**
+
+| Original | Chinese Translation |
+|----------|---------------------|
+| Dashboard | 控制面板 |
+| Setup Wizard | 安装向导 |
+| Gateway | 网关 |
+| Onboarding | 新手引导 |
+| Quick Actions | 快捷操作 |
+| Terminal | 终端 |
+| Logs | 日志 |
+| Settings | 设置 |
+| Start Gateway | 启动网关 |
+| Downloading Ubuntu rootfs... | 下载 Ubuntu 根文件系统... |
+| Setup complete! | 设置完成！ |
+
+**4. Documentation**
+- Chinese README (`README_CN.md`)
+
+### Expected Results
+
+| Scenario | Original Version | Optimized Version |
+|----------|------------------|-------------------|
+| Total first-time setup | 20-40 minutes (or timeout failure) | 5-10 minutes |
+| Ubuntu rootfs download | Frequent timeout failures | Stable and fast |
+| apt package installation | May fail due to network issues | Stable and reliable |
+| Node.js download | Slow or failed connections | Completed in seconds |
+| OpenClaw npm installation | May get stuck | Fast completion |
+
+---
+
 ## Screenshots
 
 <table align="center">

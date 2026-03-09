@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/gateway_provider.dart';
 import '../providers/node_provider.dart';
 import '../widgets/gateway_controls.dart';
@@ -23,10 +24,11 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OpenClaw'),
+        title: Text(l10n.appName),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -46,7 +48,7 @@ class DashboardScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 8),
               child: Text(
-                'QUICK ACTIONS',
+                l10n.quickActions,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w600,
@@ -55,8 +57,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'Terminal',
-              subtitle: 'Open Ubuntu shell with OpenClaw',
+              title: l10n.terminal,
+              subtitle: l10n.terminalSubtitle,
               icon: Icons.terminal,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -71,11 +73,11 @@ class DashboardScreen extends StatelessWidget {
                     : null;
                 final subtitle = provider.state.isRunning
                     ? (token != null
-                        ? 'Token: ${token.substring(0, (token.length > 8 ? 8 : token.length))}...'
-                        : 'Open OpenClaw dashboard in browser')
-                    : 'Start gateway first';
+                        ? '${l10n.token}: ${token.substring(0, (token.length > 8 ? 8 : token.length))}...'
+                        : l10n.webDashboardSubtitle)
+                    : l10n.startGatewayFirst;
                 return StatusCard(
-                  title: 'Web Dashboard',
+                  title: l10n.webDashboard,
                   subtitle: subtitle,
                   icon: Icons.dashboard,
                   trailing: Row(
@@ -84,11 +86,11 @@ class DashboardScreen extends StatelessWidget {
                       if (token != null)
                         IconButton(
                           icon: const Icon(Icons.copy, size: 18),
-                          tooltip: 'Copy dashboard URL',
+                          tooltip: l10n.copyDashboardUrl,
                           onPressed: () {
                             Clipboard.setData(ClipboardData(text: url!));
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Dashboard URL copied')),
+                              SnackBar(content: Text(l10n.dashboardUrlCopied)),
                             );
                           },
                         ),
@@ -108,8 +110,8 @@ class DashboardScreen extends StatelessWidget {
               },
             ),
             StatusCard(
-              title: 'Onboarding',
-              subtitle: 'Configure API keys and binding',
+              title: l10n.onboarding,
+              subtitle: l10n.onboardingSubtitle,
               icon: Icons.vpn_key,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -117,8 +119,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'Configure',
-              subtitle: 'Manage gateway settings',
+              title: l10n.configure,
+              subtitle: l10n.configureSubtitle,
               icon: Icons.tune,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -126,8 +128,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'AI Providers',
-              subtitle: 'Configure models and API keys',
+              title: l10n.aiProviders,
+              subtitle: l10n.aiProvidersSubtitle,
               icon: Icons.model_training,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -135,8 +137,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'Packages',
-              subtitle: 'Install optional tools (Go, Homebrew, SSH)',
+              title: l10n.packages,
+              subtitle: l10n.packagesSubtitle,
               icon: Icons.extension,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -144,8 +146,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'SSH Access',
-              subtitle: 'Remote terminal access via SSH',
+              title: l10n.sshAccess,
+              subtitle: l10n.sshAccessSubtitle,
               icon: Icons.terminal,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -153,8 +155,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'Logs',
-              subtitle: 'View gateway output and errors',
+              title: l10n.logs,
+              subtitle: l10n.logsSubtitle,
               icon: Icons.article_outlined,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -162,8 +164,8 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             StatusCard(
-              title: 'Snapshot',
-              subtitle: 'Backup or restore your config',
+              title: l10n.snapshot,
+              subtitle: l10n.snapshotSubtitle,
               icon: Icons.backup,
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
@@ -174,11 +176,11 @@ class DashboardScreen extends StatelessWidget {
               builder: (context, nodeProvider, _) {
                 final nodeState = nodeProvider.state;
                 return StatusCard(
-                  title: 'Node',
+                  title: l10n.node,
                   subtitle: nodeState.isPaired
-                      ? 'Connected to gateway'
+                      ? l10n.nodeConnectedToGateway
                       : nodeState.isDisabled
-                          ? 'Device capabilities for AI'
+                          ? l10n.nodeDeviceCapabilities
                           : nodeState.statusText,
                   icon: Icons.devices,
                   trailing: const Icon(Icons.chevron_right),
@@ -193,14 +195,14 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'OpenClaw v${AppConstants.version}',
+                    '${l10n.appName} v${AppConstants.version}',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'by ${AppConstants.authorName} | ${AppConstants.orgName}',
+                    l10n.versionBy(AppConstants.authorName, AppConstants.orgName),
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),

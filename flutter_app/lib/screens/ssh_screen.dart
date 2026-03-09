@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../app.dart';
+import '../l10n/app_localizations.dart';
 import '../services/ssh_service.dart';
 import 'packages_screen.dart';
 
@@ -60,6 +61,7 @@ class _SshScreenState extends State<SshScreen> {
   }
 
   Future<void> _toggleSshd() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() => _toggling = true);
     try {
       if (_running) {
@@ -76,7 +78,7 @@ class _SshScreenState extends State<SshScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('${l10n.error}: $e')),
         );
       }
     } finally {
@@ -85,10 +87,11 @@ class _SshScreenState extends State<SshScreen> {
   }
 
   Future<void> _setPassword() async {
+    final l10n = AppLocalizations.of(context)!;
     final password = _passwordController.text;
     if (password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password cannot be empty')),
+        SnackBar(content: Text(l10n.passwordCannotBeEmpty)),
       );
       return;
     }
@@ -98,13 +101,13 @@ class _SshScreenState extends State<SshScreen> {
       if (mounted) {
         _passwordController.clear();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Root password updated')),
+          SnackBar(content: Text(l10n.rootPasswordUpdated)),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to set password: $e')),
+          SnackBar(content: Text(l10n.failedToSetPassword(e.toString()))),
         );
       }
     } finally {
@@ -113,28 +116,30 @@ class _SshScreenState extends State<SshScreen> {
   }
 
   void _copyToClipboard(String text) {
+    final l10n = AppLocalizations.of(context)!;
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Copied to clipboard')),
+      SnackBar(content: Text(l10n.copiedToClipboard)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('SSH Access')),
+      appBar: AppBar(title: Text(l10n.sshAccess)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _installed
-              ? _buildInstalledView(theme, isDark)
-              : _buildNotInstalledView(theme),
+              ? _buildInstalledView(theme, isDark, l10n)
+              : _buildNotInstalledView(theme, l10n),
     );
   }
 
-  Widget _buildNotInstalledView(ThemeData theme) {
+  Widget _buildNotInstalledView(ThemeData theme, AppLocalizations l10n) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -144,12 +149,12 @@ class _SshScreenState extends State<SshScreen> {
             Icon(Icons.vpn_key, size: 64, color: theme.colorScheme.onSurfaceVariant),
             const SizedBox(height: 16),
             Text(
-              'OpenSSH not installed',
+              l10n.openSshNotInstalled,
               style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
-              'Install the OpenSSH package first from the Packages screen.',
+              l10n.openSshNotInstalledDesc,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -164,7 +169,7 @@ class _SshScreenState extends State<SshScreen> {
                 _refresh();
               },
               icon: const Icon(Icons.extension),
-              label: const Text('Open Packages'),
+              label: Text(l10n.openPackages),
             ),
           ],
         ),
@@ -172,14 +177,14 @@ class _SshScreenState extends State<SshScreen> {
     );
   }
 
-  Widget _buildInstalledView(ThemeData theme, bool isDark) {
+  Widget _buildInstalledView(ThemeData theme, bool isDark, AppLocalizations l10n) {
     final port = _portController.text.trim();
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         // Service control
-        _sectionHeader(theme, 'SERVICE CONTROL'),
+        _sectionHeader(theme, l10n.serviceControl),
         const SizedBox(height: 8),
         Card(
           child: Padding(
@@ -204,7 +209,7 @@ class _SshScreenState extends State<SshScreen> {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      _running ? 'SSH server running' : 'SSH server stopped',
+                      _running ? l10n.sshServerRunning : l10n.sshServerStopped,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -216,8 +221,8 @@ class _SshScreenState extends State<SshScreen> {
                   TextField(
                     controller: _portController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Port',
+                    decoration: InputDecoration(
+                      labelText: l10n.port,
                       hintText: '8022',
                     ),
                   ),
@@ -233,7 +238,7 @@ class _SshScreenState extends State<SshScreen> {
                                   width: 20,
                                   child: CircularProgressIndicator(strokeWidth: 2),
                                 )
-                              : const Text('Stop Server'),
+                              : Text(l10n.stopServer),
                         )
                       : FilledButton(
                           onPressed: _toggling ? null : _toggleSshd,
@@ -246,7 +251,7 @@ class _SshScreenState extends State<SshScreen> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Text('Start Server'),
+                              : Text(l10n.startServer),
                         ),
                 ),
               ],
@@ -256,7 +261,7 @@ class _SshScreenState extends State<SshScreen> {
         const SizedBox(height: 24),
 
         // Root password
-        _sectionHeader(theme, 'ROOT PASSWORD'),
+        _sectionHeader(theme, l10n.rootPassword),
         const SizedBox(height: 8),
         Card(
           child: Padding(
@@ -265,7 +270,7 @@ class _SshScreenState extends State<SshScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Set the root password for SSH login.',
+                  l10n.setRootPasswordDesc,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -274,9 +279,9 @@ class _SshScreenState extends State<SshScreen> {
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'New password',
-                    hintText: 'Enter password',
+                  decoration: InputDecoration(
+                    labelText: l10n.newPassword,
+                    hintText: l10n.enterPassword,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -293,7 +298,7 @@ class _SshScreenState extends State<SshScreen> {
                               color: Colors.white,
                             ),
                           )
-                        : const Text('Set Password'),
+                        : Text(l10n.setPassword),
                   ),
                 ),
               ],
@@ -304,7 +309,7 @@ class _SshScreenState extends State<SshScreen> {
         // Connection info (when running)
         if (_running) ...[
           const SizedBox(height: 24),
-          _sectionHeader(theme, 'CONNECTION INFO'),
+          _sectionHeader(theme, l10n.connectionInfo),
           const SizedBox(height: 8),
           Card(
             child: Padding(
@@ -312,16 +317,16 @@ class _SshScreenState extends State<SshScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoRow(theme, 'User', 'root'),
+                  _infoRow(theme, l10n.user, 'root'),
                   const Divider(height: 24),
-                  _infoRow(theme, 'Port', port),
+                  _infoRow(theme, l10n.port, port),
                   if (_ips.isNotEmpty) ...[
                     const Divider(height: 24),
-                    _infoRow(theme, 'IP Addresses', _ips.join(', ')),
+                    _infoRow(theme, l10n.ipAddresses, _ips.join(', ')),
                   ],
                   const Divider(height: 24),
                   Text(
-                    'Connect from another device:',
+                    l10n.connectFromAnotherDevice,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),

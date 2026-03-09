@@ -13,12 +13,16 @@ class SetupState {
   final SetupStep step;
   final double progress;
   final String message;
+  final String? messageKey; // For localization
+  final Map<String, String>? messageArgs; // Arguments for localized message
   final String? error;
 
   const SetupState({
     this.step = SetupStep.checkingStatus,
     this.progress = 0.0,
     this.message = '',
+    this.messageKey,
+    this.messageArgs,
     this.error,
   });
 
@@ -26,12 +30,16 @@ class SetupState {
     SetupStep? step,
     double? progress,
     String? message,
+    String? messageKey,
+    Map<String, String>? messageArgs,
     String? error,
   }) {
     return SetupState(
       step: step ?? this.step,
       progress: progress ?? this.progress,
       message: message ?? this.message,
+      messageKey: messageKey ?? this.messageKey,
+      messageArgs: messageArgs ?? this.messageArgs,
       error: error,
     );
   }
@@ -39,24 +47,24 @@ class SetupState {
   bool get isComplete => step == SetupStep.complete;
   bool get hasError => step == SetupStep.error;
 
-  String get stepLabel {
+  String get stepLabelKey {
     switch (step) {
       case SetupStep.checkingStatus:
-        return 'Checking status...';
+        return 'checkingStatus';
       case SetupStep.downloadingRootfs:
-        return 'Downloading Ubuntu rootfs';
+        return 'downloadUbuntuRootfs';
       case SetupStep.extractingRootfs:
-        return 'Extracting rootfs';
+        return 'extractRootfs';
       case SetupStep.installingNode:
-        return 'Installing Node.js';
+        return 'installNodejs';
       case SetupStep.installingOpenClaw:
-        return 'Installing OpenClaw';
+        return 'installOpenClaw';
       case SetupStep.configuringBypass:
-        return 'Configuring Bionic Bypass';
+        return 'configureBionicBypass';
       case SetupStep.complete:
-        return 'Setup complete';
+        return 'setupComplete';
       case SetupStep.error:
-        return 'Error';
+        return 'error';
     }
   }
 

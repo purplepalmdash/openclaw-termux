@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'providers/setup_provider.dart';
 import 'providers/gateway_provider.dart';
 import 'providers/node_provider.dart';
 import 'screens/splash_screen.dart';
+import 'l10n/app_localizations.dart';
 
 /// Centralized color palette for the entire app.
 class AppColors {
@@ -54,6 +56,16 @@ class OpenClawApp extends StatelessWidget {
       child: MaterialApp(
         title: 'OpenClaw',
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('zh'),
+        ],
         theme: _buildLightTheme(),
         darkTheme: _buildDarkTheme(),
         themeMode: ThemeMode.system,
@@ -95,7 +107,7 @@ class OpenClawApp extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.darkSurface,
         shape: RoundedRectangleBorder(
@@ -165,7 +177,7 @@ class OpenClawApp extends StatelessWidget {
         color: AppColors.darkBorder,
         space: 1,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.darkSurface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -226,7 +238,7 @@ class OpenClawApp extends StatelessWidget {
           color: const Color(0xFF0A0A0A),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.lightBg,
         shape: RoundedRectangleBorder(
@@ -296,7 +308,7 @@ class OpenClawApp extends StatelessWidget {
         color: AppColors.lightBorder,
         space: 1,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.lightBg,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

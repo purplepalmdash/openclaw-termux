@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app.dart';
+import '../l10n/app_localizations.dart';
 import '../models/ai_provider.dart';
 import '../services/provider_config_service.dart';
 import 'provider_detail_screen.dart';
@@ -50,25 +51,26 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
     }
   }
 
-  String _statusLabel(AiProvider provider) {
+  String _statusLabel(AppLocalizations l10n, AiProvider provider) {
     final isConfigured = _providers.containsKey(provider.id);
     if (!isConfigured) return '';
     // Check if the active model belongs to this provider
     if (_activeModel != null) {
       final isActive = provider.defaultModels.any((m) => _activeModel!.contains(m)) ||
           _activeModel!.contains(provider.id);
-      if (isActive) return 'Active';
+      if (isActive) return l10n.active;
     }
-    return 'Configured';
+    return l10n.configured;
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('AI Providers')),
+      appBar: AppBar(title: Text(l10n.aiProviders)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
@@ -98,7 +100,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Active Model',
+                                  l10n.activeModel,
                                   style: theme.textTheme.labelSmall?.copyWith(
                                     color: AppColors.statusGreen,
                                     fontWeight: FontWeight.w600,
@@ -121,22 +123,22 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                   const SizedBox(height: 16),
                 ],
                 Text(
-                  'Select a provider to configure its API key and model.',
+                  l10n.selectProviderToConfigure,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 16),
                 for (final provider in AiProvider.all)
-                  _buildProviderCard(theme, provider, isDark),
+                  _buildProviderCard(theme, provider, isDark, l10n),
               ],
             ),
     );
   }
 
-  Widget _buildProviderCard(ThemeData theme, AiProvider provider, bool isDark) {
+  Widget _buildProviderCard(ThemeData theme, AiProvider provider, bool isDark, AppLocalizations l10n) {
     final iconBg = isDark ? AppColors.darkSurfaceAlt : const Color(0xFFF3F4F6);
-    final status = _statusLabel(provider);
+    final status = _statusLabel(l10n, provider);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -177,7 +179,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: (status == 'Active'
+                              color: (status == l10n.active
                                       ? AppColors.statusGreen
                                       : AppColors.statusAmber)
                                   .withAlpha(25),
@@ -186,7 +188,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                             child: Text(
                               status,
                               style: theme.textTheme.labelSmall?.copyWith(
-                                color: status == 'Active'
+                                color: status == l10n.active
                                     ? AppColors.statusGreen
                                     : AppColors.statusAmber,
                                 fontWeight: FontWeight.w600,

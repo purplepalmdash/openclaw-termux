@@ -1,0 +1,848 @@
+{
+  "@@locale": "en",
+  "@@last_modified": "2026-03-09T00:00:00.000Z",
+
+  "appName": "OpenClaw",
+  "@appName": {"description": "App name"},
+
+  "quickActions": "QUICK ACTIONS",
+  "@quickActions": {"description": "Quick actions section header"},
+
+  "terminal": "Terminal",
+  "@terminal": {"description": "Terminal menu item"},
+
+  "terminalSubtitle": "Open Ubuntu shell with OpenClaw",
+  "@terminalSubtitle": {"description": "Terminal subtitle"},
+
+  "webDashboard": "Web Dashboard",
+  "@webDashboard": {"description": "Web dashboard menu item"},
+
+  "webDashboardSubtitle": "Open OpenClaw dashboard in browser",
+  "@webDashboardSubtitle": {"description": "Web dashboard subtitle"},
+
+  "startGatewayFirst": "Start gateway first",
+  "@startGatewayFirst": {"description": "Hint to start gateway"},
+
+  "token": "Token",
+  "@token": {"description": "Token label"},
+
+  "copyDashboardUrl": "Copy dashboard URL",
+  "@copyDashboardUrl": {"description": "Tooltip for copy URL button"},
+
+  "dashboardUrlCopied": "Dashboard URL copied",
+  "@dashboardUrlCopied": {"description": "Snackbar message"},
+
+  "onboarding": "Onboarding",
+  "@onboarding": {"description": "Onboarding menu item"},
+
+  "onboardingSubtitle": "Configure API keys and binding",
+  "@onboardingSubtitle": {"description": "Onboarding subtitle"},
+
+  "configure": "Configure",
+  "@configure": {"description": "Configure menu item"},
+
+  "configureSubtitle": "Manage gateway settings",
+  "@configureSubtitle": {"description": "Configure subtitle"},
+
+  "aiProviders": "AI Providers",
+  "@aiProviders": {"description": "AI providers menu item"},
+
+  "aiProvidersSubtitle": "Configure models and API keys",
+  "@aiProvidersSubtitle": {"description": "AI providers subtitle"},
+
+  "packages": "Packages",
+  "@packages": {"description": "Packages menu item"},
+
+  "packagesSubtitle": "Install optional tools (Go, Homebrew, SSH)",
+  "@packagesSubtitle": {"description": "Packages subtitle"},
+
+  "sshAccess": "SSH Access",
+  "@sshAccess": {"description": "SSH access menu item"},
+
+  "sshAccessSubtitle": "Remote terminal access via SSH",
+  "@sshAccessSubtitle": {"description": "SSH access subtitle"},
+
+  "logs": "Logs",
+  "@logs": {"description": "Logs menu item"},
+
+  "logsSubtitle": "View gateway output and errors",
+  "@logsSubtitle": {"description": "Logs subtitle"},
+
+  "snapshot": "Snapshot",
+  "@snapshot": {"description": "Snapshot menu item"},
+
+  "snapshotSubtitle": "Backup or restore your config",
+  "@snapshotSubtitle": {"description": "Snapshot subtitle"},
+
+  "node": "Node",
+  "@node": {"description": "Node menu item"},
+
+  "nodeConnectedToGateway": "Connected to gateway",
+  "@nodeConnectedToGateway": {"description": "Node status when connected"},
+
+  "nodeDeviceCapabilities": "Device capabilities for AI",
+  "@nodeDeviceCapabilities": {"description": "Node subtitle when disabled"},
+
+  "versionBy": "by {author} | {org}",
+  "@versionBy": {"description": "Version info", "placeholders": {"author": {"type": "String"}, "org": {"type": "String"}}},
+
+  "settings": "Settings",
+  "@settings": {"description": "Settings screen title"},
+
+  "general": "GENERAL",
+  "@general": {"description": "General settings section"},
+
+  "autoStartGateway": "Auto-start gateway",
+  "@autoStartGateway": {"description": "Auto-start setting"},
+
+  "autoStartGatewayDesc": "Start the gateway when the app opens",
+  "@autoStartGatewayDesc": {"description": "Auto-start setting description"},
+
+  "batteryOptimization": "Battery Optimization",
+  "@batteryOptimization": {"description": "Battery optimization setting"},
+
+  "batteryOptimized": "Optimized (may kill background sessions)",
+  "@batteryOptimized": {"description": "Battery optimized status"},
+
+  "batteryUnrestricted": "Unrestricted (recommended)",
+  "@batteryUnrestricted": {"description": "Battery unrestricted status"},
+
+  "setupStorage": "Setup Storage",
+  "@setupStorage": {"description": "Storage setup setting"},
+
+  "storageGranted": "Granted — proot can access /sdcard. Revoke if not needed.",
+  "@storageGranted": {"description": "Storage granted status"},
+
+  "storageNotGranted": "Allow access to shared storage",
+  "@storageNotGranted": {"description": "Storage not granted status"},
+
+  "nodeSection": "NODE",
+  "@nodeSection": {"description": "Node settings section"},
+
+  "enableNode": "Enable Node",
+  "@enableNode": {"description": "Enable node setting"},
+
+  "enableNodeDesc": "Provide device capabilities to the gateway",
+  "@enableNodeDesc": {"description": "Enable node description"},
+
+  "nodeConfiguration": "Node Configuration",
+  "@nodeConfiguration": {"description": "Node configuration menu"},
+
+  "nodeConfigurationDesc": "Connection, pairing, and capabilities",
+  "@nodeConfigurationDesc": {"description": "Node configuration description"},
+
+  "systemInfo": "SYSTEM INFO",
+  "@systemInfo": {"description": "System info section"},
+
+  "architecture": "Architecture",
+  "@architecture": {"description": "Architecture label"},
+
+  "prootPath": "PRoot path",
+  "@prootPath": {"description": "PRoot path label"},
+
+  "rootfs": "Rootfs",
+  "@rootfs": {"description": "Rootfs label"},
+
+  "installed": "Installed",
+  "@installed": {"description": "Installed status"},
+
+  "notInstalled": "Not installed",
+  "@notInstalled": {"description": "Not installed status"},
+
+  "nodejs": "Node.js",
+  "@nodejs": {"description": "Node.js label"},
+
+  "openclaw": "OpenClaw",
+  "@openclaw": {"description": "OpenClaw label"},
+
+  "goGolang": "Go (Golang)",
+  "@goGolang": {"description": "Go label"},
+
+  "homebrew": "Homebrew",
+  "@homebrew": {"description": "Homebrew label"},
+
+  "openSSH": "OpenSSH",
+  "@openSSH": {"description": "OpenSSH label"},
+
+  "maintenance": "MAINTENANCE",
+  "@maintenance": {"description": "Maintenance section"},
+
+  "exportSnapshot": "Export Snapshot",
+  "@exportSnapshot": {"description": "Export snapshot menu"},
+
+  "exportSnapshotDesc": "Backup config to Downloads",
+  "@exportSnapshotDesc": {"description": "Export snapshot description"},
+
+  "importSnapshot": "Import Snapshot",
+  "@importSnapshot": {"description": "Import snapshot menu"},
+
+  "importSnapshotDesc": "Restore config from backup",
+  "@importSnapshotDesc": {"description": "Import snapshot description"},
+
+  "rerunSetup": "Re-run setup",
+  "@rerunSetup": {"description": "Re-run setup menu"},
+
+  "rerunSetupDesc": "Reinstall or repair the environment",
+  "@rerunSetupDesc": {"description": "Re-run setup description"},
+
+  "about": "ABOUT",
+  "@about": {"description": "About section"},
+
+  "aiGatewayForAndroid": "AI Gateway for Android",
+  "@aiGatewayForAndroid": {"description": "App subtitle"},
+
+  "checkForUpdates": "Check for Updates",
+  "@checkForUpdates": {"description": "Check updates menu"},
+
+  "checkForUpdatesDesc": "Check GitHub for a newer release",
+  "@checkForUpdatesDesc": {"description": "Check updates description"},
+
+  "developer": "Developer",
+  "@developer": {"description": "Developer label"},
+
+  "gitHub": "GitHub",
+  "@gitHub": {"description": "GitHub menu"},
+
+  "contact": "Contact",
+  "@contact": {"description": "Contact menu"},
+
+  "license": "License",
+  "@license": {"description": "License label"},
+
+  "instagram": "Instagram",
+  "@instagram": {"description": "Instagram menu"},
+
+  "youTube": "YouTube",
+  "@youTube": {"description": "YouTube menu"},
+
+  "playStore": "Play Store",
+  "@playStore": {"description": "Play Store menu"},
+
+  "email": "Email",
+  "@email": {"description": "Email label"},
+
+  "snapshotSaved": "Snapshot saved to {path}",
+  "@snapshotSaved": {"description": "Snapshot saved message", "placeholders": {"path": {"type": "String"}}},
+
+  "exportFailed": "Export failed: {error}",
+  "@exportFailed": {"description": "Export failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "noSnapshotFound": "No snapshot found at {path}",
+  "@noSnapshotFound": {"description": "No snapshot message", "placeholders": {"path": {"type": "String"}}},
+
+  "snapshotRestored": "Snapshot restored successfully. Restart the gateway to apply.",
+  "@snapshotRestored": {"description": "Snapshot restored message"},
+
+  "importFailed": "Import failed: {error}",
+  "@importFailed": {"description": "Import failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "updateAvailable": "Update Available",
+  "@updateAvailable": {"description": "Update dialog title"},
+
+  "updateAvailableDesc": "A new version is available.\n\nCurrent: {current}\nLatest: {latest}",
+  "@updateAvailableDesc": {"description": "Update available message", "placeholders": {"current": {"type": "String"}, "latest": {"type": "String"}}},
+
+  "later": "Later",
+  "@later": {"description": "Later button"},
+
+  "download": "Download",
+  "@download": {"description": "Download button"},
+
+  "onLatestVersion": "You're on the latest version",
+  "@onLatestVersion": {"description": "Already on latest version message"},
+
+  "couldNotCheckUpdates": "Could not check for updates",
+  "@couldNotCheckUpdates": {"description": "Check updates failed message"},
+
+  "gateway": "Gateway",
+  "@gateway": {"description": "Gateway label"},
+
+  "running": "Running",
+  "@running": {"description": "Running status"},
+
+  "starting": "Starting",
+  "@starting": {"description": "Starting status"},
+
+  "error": "Error",
+  "@error": {"description": "Error status"},
+
+  "stopped": "Stopped",
+  "@stopped": {"description": "Stopped status"},
+
+  "copyUrl": "Copy URL",
+  "@copyUrl": {"description": "Copy URL tooltip"},
+
+  "urlCopiedToClipboard": "URL copied to clipboard",
+  "@urlCopiedToClipboard": {"description": "URL copied message"},
+
+  "openDashboard": "Open dashboard",
+  "@openDashboard": {"description": "Open dashboard tooltip"},
+
+  "startGateway": "Start Gateway",
+  "@startGateway": {"description": "Start gateway button"},
+
+  "stopGateway": "Stop Gateway",
+  "@stopGateway": {"description": "Stop gateway button"},
+
+  "viewLogs": "View Logs",
+  "@viewLogs": {"description": "View logs button"},
+
+  "setupOpenClaw": "Setup OpenClaw",
+  "@setupOpenClaw": {"description": "Setup screen title"},
+
+  "setupDescNotStarted": "This will download Ubuntu, Node.js, and OpenClaw into a self-contained environment.",
+  "@setupDescNotStarted": {"description": "Setup description when not started"},
+
+  "setupDescStarted": "Setting up the environment. This may take several minutes.",
+  "@setupDescStarted": {"description": "Setup description when started"},
+
+  "downloadUbuntuRootfs": "Download Ubuntu rootfs",
+  "@downloadUbuntuRootfs": {"description": "Setup step"},
+
+  "extractRootfs": "Extract rootfs",
+  "@extractRootfs": {"description": "Setup step"},
+
+  "installNodejs": "Install Node.js",
+  "@installNodejs": {"description": "Setup step"},
+
+  "installOpenClaw": "Install OpenClaw",
+  "@installOpenClaw": {"description": "Setup step"},
+
+  "configureBionicBypass": "Configure Bionic Bypass",
+  "@configureBionicBypass": {"description": "Setup step"},
+
+  "setupComplete": "Setup complete!",
+  "@setupComplete": {"description": "Setup complete message"},
+
+  "optionalPackages": "OPTIONAL PACKAGES",
+  "@optionalPackages": {"description": "Optional packages section"},
+
+  "beginSetup": "Begin Setup",
+  "@beginSetup": {"description": "Begin setup button"},
+
+  "retrySetup": "Retry Setup",
+  "@retrySetup": {"description": "Retry setup button"},
+
+  "configureApiKeys": "Configure API Keys",
+  "@configureApiKeys": {"description": "Configure API keys button"},
+
+  "requiresStorage": "Requires ~500MB of storage and an internet connection",
+  "@requiresStorage": {"description": "Storage requirement hint"},
+
+  "install": "Install",
+  "@install": {"description": "Install button"},
+
+  "uninstall": "Uninstall",
+  "@uninstall": {"description": "Uninstall button"},
+
+  "nodeConfigurationTitle": "Node Configuration",
+  "@nodeConfigurationTitle": {"description": "Node screen title"},
+
+  "gatewayConnection": "GATEWAY CONNECTION",
+  "@gatewayConnection": {"description": "Gateway connection section"},
+
+  "localGateway": "Local Gateway",
+  "@localGateway": {"description": "Local gateway option"},
+
+  "localGatewayDesc": "Auto-pair with gateway on this device",
+  "@localGatewayDesc": {"description": "Local gateway description"},
+
+  "remoteGateway": "Remote Gateway",
+  "@remoteGateway": {"description": "Remote gateway option"},
+
+  "remoteGatewayDesc": "Connect to a gateway on another device",
+  "@remoteGatewayDesc": {"description": "Remote gateway description"},
+
+  "gatewayHost": "Gateway Host",
+  "@gatewayHost": {"description": "Gateway host input label"},
+
+  "gatewayPort": "Gateway Port",
+  "@gatewayPort": {"description": "Gateway port input label"},
+
+  "gatewayToken": "Gateway Token",
+  "@gatewayToken": {"description": "Gateway token input label"},
+
+  "gatewayTokenHint": "Paste token from gateway dashboard URL",
+  "@gatewayTokenHint": {"description": "Gateway token hint"},
+
+  "gatewayTokenHelper": "Found in dashboard URL after #token=",
+  "@gatewayTokenHelper": {"description": "Gateway token helper text"},
+
+  "connect": "Connect",
+  "@connect": {"description": "Connect button"},
+
+  "pairing": "PAIRING",
+  "@pairing": {"description": "Pairing section"},
+
+  "approveCodeOnGateway": "Approve this code on the gateway:",
+  "@approveCodeOnGateway": {"description": "Pairing instruction"},
+
+  "capabilities": "CAPABILITIES",
+  "@capabilities": {"description": "Capabilities section"},
+
+  "camera": "Camera",
+  "@camera": {"description": "Camera capability"},
+
+  "cameraDesc": "Capture photos and video clips",
+  "@cameraDesc": {"description": "Camera capability description"},
+
+  "canvas": "Canvas",
+  "@canvas": {"description": "Canvas capability"},
+
+  "canvasDesc": "Not available on mobile",
+  "@canvasDesc": {"description": "Canvas capability description"},
+
+  "location": "Location",
+  "@location": {"description": "Location capability"},
+
+  "locationDesc": "Get device GPS coordinates",
+  "@locationDesc": {"description": "Location capability description"},
+
+  "screenRecording": "Screen Recording",
+  "@screenRecording": {"description": "Screen recording capability"},
+
+  "screenRecordingDesc": "Record device screen (requires consent each time)",
+  "@screenRecordingDesc": {"description": "Screen recording description"},
+
+  "flashlight": "Flashlight",
+  "@flashlight": {"description": "Flashlight capability"},
+
+  "flashlightDesc": "Toggle device torch on/off",
+  "@flashlightDesc": {"description": "Flashlight description"},
+
+  "vibration": "Vibration",
+  "@vibration": {"description": "Vibration capability"},
+
+  "vibrationDesc": "Trigger haptic feedback and vibration patterns",
+  "@vibrationDesc": {"description": "Vibration description"},
+
+  "sensors": "Sensors",
+  "@sensors": {"description": "Sensors capability"},
+
+  "sensorsDesc": "Read accelerometer, gyroscope, magnetometer, barometer",
+  "@sensorsDesc": {"description": "Sensors description"},
+
+  "serial": "Serial",
+  "@serial": {"description": "Serial capability"},
+
+  "serialDesc": "Bluetooth and USB serial communication",
+  "@serialDesc": {"description": "Serial description"},
+
+  "deviceInfo": "DEVICE INFO",
+  "@deviceInfo": {"description": "Device info section"},
+
+  "deviceId": "Device ID",
+  "@deviceId": {"description": "Device ID label"},
+
+  "nodeLogs": "NODE LOGS",
+  "@nodeLogs": {"description": "Node logs section"},
+
+  "noLogsYet": "No logs yet",
+  "@noLogsYet": {"description": "No logs message"},
+
+  "paired": "Paired",
+  "@paired": {"description": "Paired status"},
+
+  "connecting": "Connecting",
+  "@connecting": {"description": "Connecting status"},
+
+  "enableNodeButton": "Enable Node",
+  "@enableNodeButton": {"description": "Enable node button"},
+
+  "disableNodeButton": "Disable Node",
+  "@disableNodeButton": {"description": "Disable node button"},
+
+  "activeModel": "Active Model",
+  "@activeModel": {"description": "Active model label"},
+
+  "selectProviderToConfigure": "Select a provider to configure its API key and model.",
+  "@selectProviderToConfigure": {"description": "Provider selection hint"},
+
+  "active": "Active",
+  "@active": {"description": "Active status"},
+
+  "configured": "Configured",
+  "@configured": {"description": "Configured status"},
+
+  "apiKey": "API Key",
+  "@apiKey": {"description": "API key label"},
+
+  "model": "Model",
+  "@model": {"description": "Model label"},
+
+  "saveAndActivate": "Save & Activate",
+  "@saveAndActivate": {"description": "Save and activate button"},
+
+  "removeConfiguration": "Remove Configuration",
+  "@removeConfiguration": {"description": "Remove configuration button"},
+
+  "sshAccessTitle": "SSH Access",
+  "@sshAccessTitle": {"description": "SSH screen title"},
+
+  "serviceControl": "SERVICE CONTROL",
+  "@serviceControl": {"description": "Service control section"},
+
+  "sshServerRunning": "SSH server running",
+  "@sshServerRunning": {"description": "SSH server running status"},
+
+  "sshServerStopped": "SSH server stopped",
+  "@sshServerStopped": {"description": "SSH server stopped status"},
+
+  "port": "Port",
+  "@port": {"description": "Port label"},
+
+  "startServer": "Start Server",
+  "@startServer": {"description": "Start server button"},
+
+  "stopServer": "Stop Server",
+  "@stopServer": {"description": "Stop server button"},
+
+  "rootPassword": "ROOT PASSWORD",
+  "@rootPassword": {"description": "Root password section"},
+
+  "setRootPasswordDesc": "Set the root password for SSH login.",
+  "@setRootPasswordDesc": {"description": "Root password description"},
+
+  "newPassword": "New password",
+  "@newPassword": {"description": "New password label"},
+
+  "enterPassword": "Enter password",
+  "@enterPassword": {"description": "Enter password hint"},
+
+  "setPassword": "Set Password",
+  "@setPassword": {"description": "Set password button"},
+
+  "passwordCannotBeEmpty": "Password cannot be empty",
+  "@passwordCannotBeEmpty": {"description": "Password empty error"},
+
+  "rootPasswordUpdated": "Root password updated",
+  "@rootPasswordUpdated": {"description": "Password updated message"},
+
+  "failedToSetPassword": "Failed to set password: {error}",
+  "@failedToSetPassword": {"description": "Set password failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "connectionInfo": "CONNECTION INFO",
+  "@connectionInfo": {"description": "Connection info section"},
+
+  "user": "User",
+  "@user": {"description": "User label"},
+
+  "ipAddresses": "IP Addresses",
+  "@ipAddresses": {"description": "IP addresses label"},
+
+  "connectFromAnotherDevice": "Connect from another device:",
+  "@connectFromAnotherDevice": {"description": "Connect instruction"},
+
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {"description": "Copied message"},
+
+  "openSshNotInstalled": "OpenSSH not installed",
+  "@openSshNotInstalled": {"description": "OpenSSH not installed title"},
+
+  "openSshNotInstalledDesc": "Install the OpenSSH package first from the Packages screen.",
+  "@openSshNotInstalledDesc": {"description": "OpenSSH not installed description"},
+
+  "openPackages": "Open Packages",
+  "@openPackages": {"description": "Open packages button"},
+
+  "gatewayLogs": "Gateway Logs",
+  "@gatewayLogs": {"description": "Logs screen title"},
+
+  "filterLogs": "Filter logs...",
+  "@filterLogs": {"description": "Filter logs hint"},
+
+  "noLogsYetStartGateway": "No logs yet. Start the gateway.",
+  "@noLogsYetStartGateway": {"description": "No logs with hint"},
+
+  "noMatchingLogs": "No matching logs.",
+  "@noMatchingLogs": {"description": "No matching logs message"},
+
+  "logsCopiedToClipboard": "Logs copied to clipboard",
+  "@logsCopiedToClipboard": {"description": "Logs copied message"},
+
+  "screenshot": "Screenshot",
+  "@screenshot": {"description": "Screenshot tooltip"},
+
+  "autoScrollOn": "Auto-scroll on",
+  "@autoScrollOn": {"description": "Auto scroll on tooltip"},
+
+  "autoScrollOff": "Auto-scroll off",
+  "@autoScrollOff": {"description": "Auto scroll off tooltip"},
+
+  "copyAllLogs": "Copy all logs",
+  "@copyAllLogs": {"description": "Copy all logs tooltip"},
+
+  "screenshotSaved": "Screenshot saved: {filename}",
+  "@screenshotSaved": {"description": "Screenshot saved message", "placeholders": {"filename": {"type": "String"}}},
+
+  "failedToCaptureScreenshot": "Failed to capture screenshot",
+  "@failedToCaptureScreenshot": {"description": "Screenshot failed message"},
+
+  "optionalPackagesTitle": "Optional Packages",
+  "@optionalPackagesTitle": {"description": "Packages screen title"},
+
+  "goDesc": "Go programming language compiler and tools",
+  "@goDesc": {"description": "Go package description"},
+
+  "homebrewDesc": "The missing package manager for Linux",
+  "@homebrewDesc": {"description": "Homebrew package description"},
+
+  "openSshDesc": "Secure shell client and server",
+  "@openSshDesc": {"description": "OpenSSH package description"},
+
+  "loading": "Loading...",
+  "@loading": {"description": "Loading text"},
+
+  "retry": "Retry",
+  "@retry": {"description": "Retry button"},
+
+  "done": "Done",
+  "@done": {"description": "Done button"},
+
+  "startingDotdotdot": "Starting...",
+  "@startingDotdotdot": {"description": "Starting text"},
+
+  "loadingDotdotdot": "Loading...",
+  "@loadingDotdotdot": {"description": "Loading text"},
+
+  "splashLoading": "Loading...",
+  "@splashLoading": {"description": "Splash screen loading"},
+
+  "checkingSetupStatus": "Checking setup status...",
+  "@checkingSetupStatus": {"description": "Splash screen checking"},
+
+  "terminalTitle": "Terminal",
+  "@terminalTitle": {"description": "Terminal screen title"},
+
+  "startingTerminal": "Starting terminal...",
+  "@startingTerminal": {"description": "Starting terminal message"},
+
+  "webDashboardTitle": "Web Dashboard",
+  "@webDashboardTitle": {"description": "Web dashboard screen title"},
+
+  "failedToLoadDashboard": "Failed to load dashboard",
+  "@failedToLoadDashboard": {"description": "Dashboard load error"},
+
+  "openclawConfigure": "OpenClaw Configure",
+  "@openclawConfigure": {"description": "Configure screen title"},
+
+  "startingConfigure": "Starting configure...",
+  "@startingConfigure": {"description": "Starting configure message"},
+
+  "openclawOnboarding": "OpenClaw Onboarding",
+  "@openclawOnboarding": {"description": "Onboarding screen title"},
+
+  "startingOnboarding": "Starting onboarding...",
+  "@startingOnboarding": {"description": "Starting onboarding message"},
+
+  "copiedToClipboardMsg": "Copied to clipboard",
+  "@copiedToClipboardMsg": {"description": "Copied message"},
+
+  "providerAnthropic": "Anthropic",
+  "@providerAnthropic": {"description": "Anthropic provider name"},
+
+  "providerAnthropicDesc": "Claude models — advanced reasoning and coding",
+  "@providerAnthropicDesc": {"description": "Anthropic provider description"},
+
+  "providerOpenai": "OpenAI",
+  "@providerOpenai": {"description": "OpenAI provider name"},
+
+  "providerOpenaiDesc": "GPT and o-series models",
+  "@providerOpenaiDesc": {"description": "OpenAI provider description"},
+
+  "providerGoogle": "Google Gemini",
+  "@providerGoogle": {"description": "Google provider name"},
+
+  "providerGoogleDesc": "Gemini family of multimodal models",
+  "@providerGoogleDesc": {"description": "Google provider description"},
+
+  "providerOpenrouter": "OpenRouter",
+  "@providerOpenrouter": {"description": "OpenRouter provider name"},
+
+  "providerOpenrouterDesc": "Unified API for hundreds of models",
+  "@providerOpenrouterDesc": {"description": "OpenRouter provider description"},
+
+  "providerNvidia": "NVIDIA NIM",
+  "@providerNvidia": {"description": "NVIDIA provider name"},
+
+  "providerNvidiaDesc": "GPU-optimized inference endpoints",
+  "@providerNvidiaDesc": {"description": "NVIDIA provider description"},
+
+  "providerDeepseek": "DeepSeek",
+  "@providerDeepseek": {"description": "DeepSeek provider name"},
+
+  "providerDeepseekDesc": "High-performance open models",
+  "@providerDeepseekDesc": {"description": "DeepSeek provider description"},
+
+  "providerXai": "xAI",
+  "@providerXai": {"description": "xAI provider name"},
+
+  "providerXaiDesc": "Grok models from xAI",
+  "@providerXaiDesc": {"description": "xAI provider description"},
+
+  "esc": "ESC",
+  "@esc": {"description": "ESC key"},
+
+  "ctrl": "CTRL",
+  "@ctrl": {"description": "CTRL key"},
+
+  "alt": "ALT",
+  "@alt": {"description": "ALT key"},
+
+  "tab": "TAB",
+  "@tab": {"description": "TAB key"},
+
+  "enter": "ENTER",
+  "@enter": {"description": "ENTER key"},
+
+  "home": "HOME",
+  "@home": {"description": "HOME key"},
+
+  "end": "END",
+  "@end": {"description": "END key"},
+
+  "cancel": "Cancel",
+  "@cancel": {"description": "Cancel button"},
+
+  "uninstallConfirmTitle": "Uninstall {package}?",
+  "@uninstallConfirmTitle": {"description": "Uninstall confirmation dialog title", "placeholders": {"package": {"type": "String"}}},
+
+  "uninstallConfirmDesc": "This will remove {package} from the environment.",
+  "@uninstallConfirmDesc": {"description": "Uninstall confirmation dialog description", "placeholders": {"package": {"type": "String"}}},
+
+  "openLink": "Open Link",
+  "@openLink": {"description": "Open link dialog title"},
+
+  "open": "Open",
+  "@open": {"description": "Open button"},
+
+  "copy": "Copy",
+  "@copy": {"description": "Copy button"},
+
+  "paste": "Paste",
+  "@paste": {"description": "Paste tooltip"},
+
+  "openUrl": "Open URL",
+  "@openUrl": {"description": "Open URL tooltip"},
+
+  "linkCopied": "Link copied",
+  "@linkCopied": {"description": "Link copied message"},
+
+  "noUrlFound": "No URL found in selection",
+  "@noUrlFound": {"description": "No URL found message"},
+
+  "goToDashboard": "Go to Dashboard",
+  "@goToDashboard": {"description": "Go to dashboard button"},
+
+  "apiKeyCannotBeEmpty": "API key cannot be empty",
+  "@apiKeyCannotBeEmpty": {"description": "API key empty error"},
+
+  "modelNameCannotBeEmpty": "Model name cannot be empty",
+  "@modelNameCannotBeEmpty": {"description": "Model name empty error"},
+
+  "providerConfiguredAndActivated": "{provider} configured and activated",
+  "@providerConfiguredAndActivated": {"description": "Provider configured message", "placeholders": {"provider": {"type": "String"}}},
+
+  "failedToSave": "Failed to save: {error}",
+  "@failedToSave": {"description": "Save failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "removeProviderTitle": "Remove {provider}?",
+  "@removeProviderTitle": {"description": "Remove provider dialog title", "placeholders": {"provider": {"type": "String"}}},
+
+  "removeProviderDesc": "This will delete the API key and deactivate the model.",
+  "@removeProviderDesc": {"description": "Remove provider dialog description"},
+
+  "remove": "Remove",
+  "@remove": {"description": "Remove button"},
+
+  "providerRemoved": "{provider} removed",
+  "@providerRemoved": {"description": "Provider removed message", "placeholders": {"provider": {"type": "String"}}},
+
+  "failedToRemove": "Failed to remove: {error}",
+  "@failedToRemove": {"description": "Remove failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "customModel": "Custom...",
+  "@customModel": {"description": "Custom model dropdown option"},
+
+  "customModelHint": "e.g. meta/llama-3.3-70b-instruct",
+  "@customModelHint": {"description": "Custom model input hint"},
+
+  "customModelName": "Custom model name",
+  "@customModelName": {"description": "Custom model input label"}
+,
+
+  "checkingStatus": "Checking status...",
+  "@checkingStatus": {"description": "Checking status step"},
+
+  "settingUpDirectories": "Setting up directories...",
+  "@settingUpDirectories": {"description": "Setting up directories message"},
+
+  "downloadingUbuntuRootfs": "Downloading Ubuntu rootfs...",
+  "@downloadingUbuntuRootfs": {"description": "Downloading Ubuntu rootfs message"},
+
+  "downloadingRootfs": "Downloading rootfs: {current} / {total} MB",
+  "@downloadingRootfs": {"description": "Downloading rootfs progress", "placeholders": {"current": {"type": "String"}, "total": {"type": "String"}}},
+
+  "downloadingProgress": "Downloading: {current} MB / {total} MB",
+  "@downloadingProgress": {"description": "Downloading progress message", "placeholders": {"current": {"type": "String"}, "total": {"type": "String"}}},
+
+  "extractingRootfsWait": "Extracting rootfs (this takes a while)...",
+  "@extractingRootfsWait": {"description": "Extracting rootfs message"},
+
+  "rootfsExtracted": "Rootfs extracted",
+  "@rootfsExtracted": {"description": "Rootfs extracted message"},
+
+  "fixingRootfsPermissions": "Fixing rootfs permissions...",
+  "@fixingRootfsPermissions": {"description": "Fixing permissions message"},
+
+  "updatingPackageLists": "Updating package lists...",
+  "@updatingPackageLists": {"description": "Updating package lists message"},
+
+  "installingBasePackages": "Installing base packages...",
+  "@installingBasePackages": {"description": "Installing base packages message"},
+
+  "downloadingNodejs": "Downloading Node.js...",
+  "@downloadingNodejs": {"description": "Downloading Node.js message"},
+
+  "downloadingNodejsProgress": "Downloading Node.js: {current} / {total} MB",
+  "@downloadingNodejsProgress": {"description": "Downloading Node.js progress", "placeholders": {"current": {"type": "String"}, "total": {"type": "String"}}},
+
+  "extractingNodejs": "Extracting Node.js...",
+  "@extractingNodejs": {"description": "Extracting Node.js message"},
+
+  "verifyingNodejs": "Verifying Node.js...",
+  "@verifyingNodejs": {"description": "Verifying Node.js message"},
+
+  "nodejsInstalled": "Node.js installed",
+  "@nodejsInstalled": {"description": "Node.js installed message"},
+
+  "installingOpenClawWait": "Installing OpenClaw (this may take a few minutes)...",
+  "@installingOpenClawWait": {"description": "Installing OpenClaw message"},
+
+  "creatingBinWrappers": "Creating bin wrappers...",
+  "@creatingBinWrappers": {"description": "Creating bin wrappers message"},
+
+  "verifyingOpenClaw": "Verifying OpenClaw...",
+  "@verifyingOpenClaw": {"description": "Verifying OpenClaw message"},
+
+  "openClawInstalled": "OpenClaw installed",
+  "@openClawInstalled": {"description": "OpenClaw installed message"},
+
+  "bionicBypassConfigured": "Bionic Bypass configured",
+  "@bionicBypassConfigured": {"description": "Bionic bypass configured message"},
+
+  "setupCompleteReady": "Setup complete! Ready to start the gateway.",
+  "@setupCompleteReady": {"description": "Setup complete ready message"},
+
+  "setupRequired": "Setup required",
+  "@setupRequired": {"description": "Setup required message"},
+
+  "downloadFailed": "Download failed: {error}. Check your internet connection.",
+  "@downloadFailed": {"description": "Download failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "setupFailed": "Setup failed: {error}",
+  "@setupFailed": {"description": "Setup failed message", "placeholders": {"error": {"type": "String"}}},
+
+  "failedToCheckStatus": "Failed to check status: {error}",
+  "@failedToCheckStatus": {"description": "Failed to check status message", "placeholders": {"error": {"type": "String"}}}
+}

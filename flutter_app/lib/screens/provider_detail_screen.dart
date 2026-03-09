@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app.dart';
+import '../l10n/app_localizations.dart';
 import '../models/ai_provider.dart';
 import '../services/provider_config_service.dart';
 
@@ -62,17 +63,18 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   }
 
   Future<void> _save() async {
+    final l10n = AppLocalizations.of(context)!;
     final apiKey = _apiKeyController.text.trim();
     if (apiKey.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('API key cannot be empty')),
+        SnackBar(content: Text(l10n.apiKeyCannotBeEmpty)),
       );
       return;
     }
     final model = _effectiveModel;
     if (model.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Model name cannot be empty')),
+        SnackBar(content: Text(l10n.modelNameCannotBeEmpty)),
       );
       return;
     }
@@ -86,14 +88,14 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${widget.provider.name} configured and activated')),
+          SnackBar(content: Text(l10n.providerConfiguredAndActivated(widget.provider.name))),
         );
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save: $e')),
+          SnackBar(content: Text(l10n.failedToSave(e.toString()))),
         );
       }
     } finally {
@@ -102,19 +104,20 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   }
 
   Future<void> _remove() async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Remove ${widget.provider.name}?'),
-        content: const Text('This will delete the API key and deactivate the model.'),
+        title: Text(l10n.removeProviderTitle(widget.provider.name)),
+        content: Text(l10n.removeProviderDesc),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Remove'),
+            child: Text(l10n.remove),
           ),
         ],
       ),
@@ -127,14 +130,14 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       await ProviderConfigService.removeProviderConfig(provider: widget.provider);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${widget.provider.name} removed')),
+          SnackBar(content: Text(l10n.providerRemoved(widget.provider.name))),
         );
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to remove: $e')),
+          SnackBar(content: Text(l10n.failedToRemove(e.toString()))),
         );
       }
     } finally {
@@ -144,6 +147,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final iconBg = isDark ? AppColors.darkSurfaceAlt : const Color(0xFFF3F4F6);
@@ -197,7 +201,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
 
           // API Key
           Text(
-            'API Key',
+            l10n.apiKey,
             style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
@@ -216,7 +220,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
 
           // Model selection
           Text(
-            'Model',
+            l10n.model,
             style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
@@ -227,9 +231,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             items: [
               ...widget.provider.defaultModels
                   .map((m) => DropdownMenuItem(value: m, child: Text(m))),
-              const DropdownMenuItem(
+              DropdownMenuItem(
                 value: _customModelSentinel,
-                child: Text('Custom...'),
+                child: Text(l10n.customModel),
               ),
             ],
             onChanged: (value) {
@@ -245,9 +249,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             const SizedBox(height: 12),
             TextField(
               controller: _customModelController,
-              decoration: const InputDecoration(
-                hintText: 'e.g. meta/llama-3.3-70b-instruct',
-                labelText: 'Custom model name',
+              decoration: InputDecoration(
+                hintText: l10n.customModelHint,
+                labelText: l10n.customModelName,
               ),
             ),
           ],
@@ -262,7 +266,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : const Text('Save & Activate'),
+                : Text(l10n.saveAndActivate),
           ),
           if (_isConfigured) ...[
             const SizedBox(height: 12),
@@ -274,7 +278,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('Remove Configuration'),
+                  : Text(l10n.removeConfiguration),
             ),
           ],
         ],

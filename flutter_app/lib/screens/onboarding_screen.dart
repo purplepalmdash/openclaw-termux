@@ -6,6 +6,7 @@ import 'package:xterm/xterm.dart';
 import 'package:flutter_pty/flutter_pty.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
+import '../l10n/app_localizations.dart';
 import '../services/native_bridge.dart';
 import '../services/screenshot_service.dart';
 import '../services/terminal_service.dart';
@@ -262,10 +263,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (url != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Copied to clipboard'),
+          content: Text(AppLocalizations.of(context)!.copiedToClipboard),
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Open',
+            label: AppLocalizations.of(context)!.open,
             onPressed: () {
               final uri = Uri.tryParse(url);
               if (uri != null) {
@@ -277,9 +278,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Copied to clipboard'),
-          duration: Duration(seconds: 1),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.copiedToClipboard),
+          duration: const Duration(seconds: 1),
         ),
       );
     }
@@ -298,9 +299,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       }
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('No URL found in selection'),
-        duration: Duration(seconds: 1),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.noUrlFound),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
@@ -313,13 +314,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _takeScreenshot() async {
+    final l10n = AppLocalizations.of(context)!;
     final path = await ScreenshotService.capture(_screenshotKey, prefix: 'onboarding');
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(path != null
-            ? 'Screenshot saved: ${path.split('/').last}'
-            : 'Failed to capture screenshot'),
+            ? l10n.screenshotSaved(path.split('/').last)
+            : l10n.failedToCaptureScreenshot),
       ),
     );
   }
@@ -361,32 +363,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final uri = Uri.tryParse(url);
     if (uri == null) return;
 
+    final l10n = AppLocalizations.of(context)!;
     final shouldOpen = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Open Link'),
+        title: Text(l10n.openLink),
         content: Text(url),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
               Clipboard.setData(ClipboardData(text: url));
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Link copied'),
-                  duration: Duration(seconds: 1),
+                SnackBar(
+                  content: Text(l10n.linkCopied),
+                  duration: const Duration(seconds: 1),
                 ),
               );
               Navigator.pop(ctx, false);
             },
-            child: const Text('Copy'),
+            child: Text(l10n.copy),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Open'),
+            child: Text(l10n.open),
           ),
         ],
       ),
@@ -413,9 +416,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OpenClaw Onboarding'),
+        title: Text(l10n.openclawOnboarding),
         leading: widget.isFirstRun
             ? null // no back button during first-run
             : IconButton(
@@ -426,22 +431,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.camera_alt_outlined),
-            tooltip: 'Screenshot',
+            tooltip: l10n.screenshot,
             onPressed: _takeScreenshot,
           ),
           IconButton(
             icon: const Icon(Icons.copy),
-            tooltip: 'Copy',
+            tooltip: l10n.copy,
             onPressed: _copySelection,
           ),
           IconButton(
             icon: const Icon(Icons.open_in_browser),
-            tooltip: 'Open URL',
+            tooltip: l10n.openUrl,
             onPressed: _openSelection,
           ),
           IconButton(
             icon: const Icon(Icons.paste),
-            tooltip: 'Paste',
+            tooltip: l10n.paste,
             onPressed: _paste,
           ),
         ],
@@ -449,14 +454,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Column(
         children: [
           if (_loading)
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
-                    Text('Starting onboarding...'),
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
+                    Text(l10n.startingOnboarding),
                   ],
                 ),
               ),
@@ -491,7 +496,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           _startOnboarding();
                         },
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
+                        label: Text(l10n.retry),
                       ),
                     ],
                   ),
@@ -534,8 +539,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ? Icons.arrow_forward
                       : Icons.check),
                   label: Text(widget.isFirstRun
-                      ? 'Go to Dashboard'
-                      : 'Done'),
+                      ? l10n.goToDashboard
+                      : l10n.done),
                 ),
               ),
             ),

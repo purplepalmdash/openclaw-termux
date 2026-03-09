@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app.dart';
 import '../constants.dart';
+import '../l10n/app_localizations.dart';
 import '../models/setup_state.dart';
 import '../models/optional_package.dart';
 import '../providers/setup_provider.dart';
@@ -39,6 +40,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: SafeArea(
@@ -64,7 +66,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Setup OpenClaw',
+                    l10n.setupOpenClaw,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -72,15 +74,15 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                   const SizedBox(height: 8),
                   Text(
                     _started
-                        ? 'Setting up the environment. This may take several minutes.'
-                        : 'This will download Ubuntu, Node.js, and OpenClaw into a self-contained environment.',
+                        ? l10n.setupDescStarted
+                        : l10n.setupDescNotStarted,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 32),
                   Expanded(
-                    child: _buildSteps(state, theme, isDark),
+                    child: _buildSteps(state, theme, isDark, l10n),
                   ),
                   if (state.hasError) ...[
                     ConstrainedBox(
@@ -116,7 +118,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                       child: FilledButton.icon(
                         onPressed: () => _goToOnboarding(context),
                         icon: const Icon(Icons.arrow_forward),
-                        label: const Text('Configure API Keys'),
+                        label: Text(l10n.configureApiKeys),
                       ),
                     )
                   else if (!_started || state.hasError)
@@ -130,14 +132,14 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                                 provider.runSetup();
                               },
                         icon: const Icon(Icons.download),
-                        label: Text(_started ? 'Retry Setup' : 'Begin Setup'),
+                        label: Text(_started ? l10n.retrySetup : l10n.beginSetup),
                       ),
                     ),
                   if (!_started) ...[
                     const SizedBox(height: 8),
                     Center(
                       child: Text(
-                        'Requires ~500MB of storage and an internet connection',
+                        l10n.requiresStorage,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -147,7 +149,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                   const SizedBox(height: 16),
                   Center(
                     child: Text(
-                      'by ${AppConstants.authorName} | ${AppConstants.orgName}',
+                      l10n.versionBy(AppConstants.authorName, AppConstants.orgName),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -162,13 +164,61 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
     );
   }
 
-  Widget _buildSteps(SetupState state, ThemeData theme, bool isDark) {
+  String _getLocalizedMessage(SetupState state, AppLocalizations l10n, String defaultLabel) {
+    if (state.messageKey == null) return defaultLabel;
+    
+    final args = state.messageArgs ?? {};
+    switch (state.messageKey) {
+      case 'settingUpDirectories':
+        return l10n.settingUpDirectories;
+      case 'downloadingUbuntuRootfs':
+        return l10n.downloadingUbuntuRootfs;
+      case 'downloadingProgress':
+        return l10n.downloadingProgress(args['current'] ?? '', args['total'] ?? '');
+      case 'extractingRootfsWait':
+        return l10n.extractingRootfsWait;
+      case 'rootfsExtracted':
+        return l10n.rootfsExtracted;
+      case 'fixingRootfsPermissions':
+        return l10n.fixingRootfsPermissions;
+      case 'updatingPackageLists':
+        return l10n.updatingPackageLists;
+      case 'installingBasePackages':
+        return l10n.installingBasePackages;
+      case 'downloadingNodejs':
+        return l10n.downloadingNodejs;
+      case 'downloadingNodejsProgress':
+        return l10n.downloadingNodejsProgress(args['current'] ?? '', args['total'] ?? '');
+      case 'extractingNodejs':
+        return l10n.extractingNodejs;
+      case 'verifyingNodejs':
+        return l10n.verifyingNodejs;
+      case 'nodejsInstalled':
+        return l10n.nodejsInstalled;
+      case 'installingOpenClawWait':
+        return l10n.installingOpenClawWait;
+      case 'creatingBinWrappers':
+        return l10n.creatingBinWrappers;
+      case 'verifyingOpenClaw':
+        return l10n.verifyingOpenClaw;
+      case 'openClawInstalled':
+        return l10n.openClawInstalled;
+      case 'bionicBypassConfigured':
+        return l10n.bionicBypassConfigured;
+      case 'setupCompleteReady':
+        return l10n.setupCompleteReady;
+      default:
+        return defaultLabel;
+    }
+  }
+
+  Widget _buildSteps(SetupState state, ThemeData theme, bool isDark, AppLocalizations l10n) {
     final steps = [
-      (1, 'Download Ubuntu rootfs', SetupStep.downloadingRootfs),
-      (2, 'Extract rootfs', SetupStep.extractingRootfs),
-      (3, 'Install Node.js', SetupStep.installingNode),
-      (4, 'Install OpenClaw', SetupStep.installingOpenClaw),
-      (5, 'Configure Bionic Bypass', SetupStep.configuringBypass),
+      (1, l10n.downloadUbuntuRootfs, SetupStep.downloadingRootfs),
+      (2, l10n.extractRootfs, SetupStep.extractingRootfs),
+      (3, l10n.installNodejs, SetupStep.installingNode),
+      (4, l10n.installOpenClaw, SetupStep.installingOpenClaw),
+      (5, l10n.configureBionicBypass, SetupStep.configuringBypass),
     ];
 
     return ListView(
@@ -176,23 +226,23 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
         for (final (num, label, step) in steps)
           ProgressStep(
             stepNumber: num,
-            label: state.step == step ? state.message : label,
+            label: state.step == step ? _getLocalizedMessage(state, l10n, label) : label,
             isActive: state.step == step,
             isComplete: state.stepNumber > step.index + 1 || state.isComplete,
             hasError: state.hasError && state.step == step,
             progress: state.step == step ? state.progress : null,
           ),
         if (state.isComplete) ...[
-          const ProgressStep(
+          ProgressStep(
             stepNumber: 6,
-            label: 'Setup complete!',
+            label: l10n.setupComplete,
             isComplete: true,
           ),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              'OPTIONAL PACKAGES',
+              l10n.optionalPackages,
               style: theme.textTheme.labelSmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w600,
@@ -202,13 +252,13 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
           ),
           const SizedBox(height: 8),
           for (final pkg in OptionalPackage.all)
-            _buildPackageTile(theme, pkg, isDark),
+            _buildPackageTile(theme, pkg, isDark, l10n),
         ],
       ],
     );
   }
 
-  Widget _buildPackageTile(ThemeData theme, OptionalPackage package, bool isDark) {
+  Widget _buildPackageTile(ThemeData theme, OptionalPackage package, bool isDark, AppLocalizations l10n) {
     final installed = _pkgStatuses[package.id] ?? false;
     final iconBg = isDark ? AppColors.darkSurfaceAlt : const Color(0xFFF3F4F6);
 
@@ -237,7 +287,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
                   color: AppColors.statusGreen.withAlpha(25),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text('Installed',
+                child: Text(l10n.installed,
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: AppColors.statusGreen,
                       fontWeight: FontWeight.w600,
@@ -251,7 +301,7 @@ class _SetupWizardScreenState extends State<SetupWizardScreen> {
             ? const Icon(Icons.check_circle, color: AppColors.statusGreen)
             : OutlinedButton(
                 onPressed: () => _installPackage(package),
-                child: const Text('Install'),
+                child: Text(l10n.install),
               ),
       ),
     );

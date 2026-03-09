@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
+import '../l10n/app_localizations.dart';
 import '../services/native_bridge.dart';
 import '../services/preferences_service.dart';
 import 'setup_wizard_screen.dart';
@@ -135,6 +136,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       body: Center(
         child: FadeTransition(
@@ -159,14 +162,14 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               const SizedBox(height: 8),
               Text(
-                'AI Gateway for Android',
+                l10n.aiGatewayForAndroid,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
-                'by ${AppConstants.authorName} | ${AppConstants.orgName}',
+                l10n.versionBy(AppConstants.authorName, AppConstants.orgName),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -175,6 +178,8 @@ class _SplashScreenState extends State<SplashScreen>
               const CircularProgressIndicator(),
               const SizedBox(height: 16),
               Text(
+                _status == 'Loading...' ? l10n.loading : 
+                _status == 'Checking setup status...' ? l10n.checkingSetupStatus : 
                 _status,
                 style: Theme.of(context).textTheme.bodySmall,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app.dart';
+import '../l10n/app_localizations.dart';
 import '../models/optional_package.dart';
 import '../services/package_service.dart';
 import 'package_install_screen.dart';
@@ -50,24 +51,25 @@ class _PackagesScreenState extends State<PackagesScreen> {
   }
 
   void _confirmUninstall(OptionalPackage package) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Uninstall ${package.name}?'),
+        title: Text(l10n.uninstallConfirmTitle(package.name)),
         content: Text(
-          'This will remove ${package.name} from the environment.',
+          l10n.uninstallConfirmDesc(package.name),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () {
               Navigator.pop(ctx);
               _navigateToInstall(package, isUninstall: true);
             },
-            child: const Text('Uninstall'),
+            child: Text(l10n.uninstall),
           ),
         ],
       ),
@@ -76,31 +78,32 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Optional Packages')),
+      appBar: AppBar(title: Text(l10n.optionalPackagesTitle)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(16),
               children: [
                 Text(
-                  'Development tools you can install inside the Ubuntu environment.',
+                  l10n.packagesSubtitle,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 16),
                 for (final pkg in OptionalPackage.all)
-                  _buildPackageCard(theme, pkg, isDark),
+                  _buildPackageCard(theme, pkg, isDark, l10n),
               ],
             ),
     );
   }
 
-  Widget _buildPackageCard(ThemeData theme, OptionalPackage package, bool isDark) {
+  Widget _buildPackageCard(ThemeData theme, OptionalPackage package, bool isDark, AppLocalizations l10n) {
     final installed = _statuses[package.id] ?? false;
     final iconBg = isDark ? AppColors.darkSurfaceAlt : const Color(0xFFF3F4F6);
 
@@ -144,7 +147,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            'Installed',
+                            l10n.installed,
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: AppColors.statusGreen,
                               fontWeight: FontWeight.w600,
@@ -175,11 +178,11 @@ class _PackagesScreenState extends State<PackagesScreen> {
             installed
                 ? OutlinedButton(
                     onPressed: () => _confirmUninstall(package),
-                    child: const Text('Uninstall'),
+                    child: Text(l10n.uninstall),
                   )
                 : FilledButton(
                     onPressed: () => _navigateToInstall(package),
-                    child: const Text('Install'),
+                    child: Text(l10n.install),
                   ),
           ],
         ),

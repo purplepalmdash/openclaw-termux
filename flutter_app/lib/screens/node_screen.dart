@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/node_provider.dart';
 import '../services/preferences_service.dart';
 import '../widgets/node_controls.dart';
@@ -51,9 +52,10 @@ class _NodeScreenState extends State<NodeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Node Configuration')),
+      appBar: AppBar(title: Text(l10n.nodeConfiguration)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : Consumer<NodeProvider>(
@@ -67,7 +69,7 @@ class _NodeScreenState extends State<NodeScreen> {
                     const SizedBox(height: 16),
 
                     // Gateway Connection
-                    _sectionHeader(theme, 'GATEWAY CONNECTION'),
+                    _sectionHeader(theme, l10n.gatewayConnection),
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -75,8 +77,8 @@ class _NodeScreenState extends State<NodeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RadioListTile<bool>(
-                              title: const Text('Local Gateway'),
-                              subtitle: const Text('Auto-pair with gateway on this device'),
+                              title: Text(l10n.localGateway),
+                              subtitle: Text(l10n.localGatewayDesc),
                               value: true,
                               groupValue: _isLocal,
                               onChanged: (value) {
@@ -84,8 +86,8 @@ class _NodeScreenState extends State<NodeScreen> {
                               },
                             ),
                             RadioListTile<bool>(
-                              title: const Text('Remote Gateway'),
-                              subtitle: const Text('Connect to a gateway on another device'),
+                              title: Text(l10n.remoteGateway),
+                              subtitle: Text(l10n.remoteGatewayDesc),
                               value: false,
                               groupValue: _isLocal,
                               onChanged: (value) {
@@ -96,16 +98,16 @@ class _NodeScreenState extends State<NodeScreen> {
                               const SizedBox(height: 12),
                               TextField(
                                 controller: _hostController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Gateway Host',
+                                decoration: InputDecoration(
+                                  labelText: l10n.gatewayHost,
                                   hintText: '192.168.1.100',
                                 ),
                               ),
                               const SizedBox(height: 12),
                               TextField(
                                 controller: _portController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Gateway Port',
+                                decoration: InputDecoration(
+                                  labelText: l10n.gatewayPort,
                                   hintText: '18789',
                                 ),
                                 keyboardType: TextInputType.number,
@@ -113,11 +115,11 @@ class _NodeScreenState extends State<NodeScreen> {
                               const SizedBox(height: 12),
                               TextField(
                                 controller: _tokenController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Gateway Token',
-                                  hintText: 'Paste token from gateway dashboard URL',
-                                  helperText: 'Found in dashboard URL after #token=',
-                                  prefixIcon: Icon(Icons.key),
+                                decoration: InputDecoration(
+                                  labelText: l10n.gatewayToken,
+                                  hintText: l10n.gatewayTokenHint,
+                                  helperText: l10n.gatewayTokenHelper,
+                                  prefixIcon: const Icon(Icons.key),
                                 ),
                                 obscureText: true,
                               ),
@@ -133,7 +135,7 @@ class _NodeScreenState extends State<NodeScreen> {
                                   }
                                 },
                                 icon: const Icon(Icons.link),
-                                label: const Text('Connect'),
+                                label: Text(l10n.connect),
                               ),
                             ],
                           ],
@@ -144,7 +146,7 @@ class _NodeScreenState extends State<NodeScreen> {
 
                     // Pairing Status
                     if (state.pairingCode != null) ...[
-                      _sectionHeader(theme, 'PAIRING'),
+                      _sectionHeader(theme, l10n.pairing),
                       Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -153,7 +155,7 @@ class _NodeScreenState extends State<NodeScreen> {
                               const Icon(Icons.qr_code, size: 48),
                               const SizedBox(height: 8),
                               Text(
-                                'Approve this code on the gateway:',
+                                l10n.approveCodeOnGateway,
                                 style: theme.textTheme.bodyMedium,
                               ),
                               const SizedBox(height: 8),
@@ -173,63 +175,63 @@ class _NodeScreenState extends State<NodeScreen> {
                     ],
 
                     // Capabilities
-                    _sectionHeader(theme, 'CAPABILITIES'),
+                    _sectionHeader(theme, l10n.capabilities),
                     _capabilityTile(
                       theme,
-                      'Camera',
-                      'Capture photos and video clips',
+                      l10n.camera,
+                      l10n.cameraDesc,
                       Icons.camera_alt,
                     ),
                     _capabilityTile(
                       theme,
-                      'Canvas',
-                      'Not available on mobile',
+                      l10n.canvas,
+                      l10n.canvasDesc,
                       Icons.web,
                       available: false,
                     ),
                     _capabilityTile(
                       theme,
-                      'Location',
-                      'Get device GPS coordinates',
+                      l10n.location,
+                      l10n.locationDesc,
                       Icons.location_on,
                     ),
                     _capabilityTile(
                       theme,
-                      'Screen Recording',
-                      'Record device screen (requires consent each time)',
+                      l10n.screenRecording,
+                      l10n.screenRecordingDesc,
                       Icons.screen_share,
                     ),
                     _capabilityTile(
                       theme,
-                      'Flashlight',
-                      'Toggle device torch on/off',
+                      l10n.flashlight,
+                      l10n.flashlightDesc,
                       Icons.flashlight_on,
                     ),
                     _capabilityTile(
                       theme,
-                      'Vibration',
-                      'Trigger haptic feedback and vibration patterns',
+                      l10n.vibration,
+                      l10n.vibrationDesc,
                       Icons.vibration,
                     ),
                     _capabilityTile(
                       theme,
-                      'Sensors',
-                      'Read accelerometer, gyroscope, magnetometer, barometer',
+                      l10n.sensors,
+                      l10n.sensorsDesc,
                       Icons.sensors,
                     ),
                     _capabilityTile(
                       theme,
-                      'Serial',
-                      'Bluetooth and USB serial communication',
+                      l10n.serial,
+                      l10n.serialDesc,
                       Icons.usb,
                     ),
                     const SizedBox(height: 16),
 
                     // Device Info
                     if (state.deviceId != null) ...[
-                      _sectionHeader(theme, 'DEVICE INFO'),
+                      _sectionHeader(theme, l10n.deviceInfo),
                       ListTile(
-                        title: const Text('Device ID'),
+                        title: Text(l10n.deviceId),
                         subtitle: SelectableText(
                           state.deviceId!,
                           style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
@@ -240,7 +242,7 @@ class _NodeScreenState extends State<NodeScreen> {
                     const SizedBox(height: 16),
 
                     // Logs
-                    _sectionHeader(theme, 'NODE LOGS'),
+                    _sectionHeader(theme, l10n.nodeLogs),
                     Card(
                       child: Container(
                         height: 200,
@@ -248,7 +250,7 @@ class _NodeScreenState extends State<NodeScreen> {
                         child: state.logs.isEmpty
                             ? Center(
                                 child: Text(
-                                  'No logs yet',
+                                  l10n.noLogsYet,
                                   style: theme.textTheme.bodySmall?.copyWith(
                                     color: theme.colorScheme.onSurfaceVariant,
                                   ),
