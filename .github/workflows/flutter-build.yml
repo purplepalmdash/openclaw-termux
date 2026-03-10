@@ -101,9 +101,17 @@ jobs:
             done
           done
 
+      - name: Clean Flutter project
+        working-directory: flutter_app
+        run: flutter clean
+
       - name: Get Flutter dependencies
         working-directory: flutter_app
         run: flutter pub get
+
+      - name: Generate l10n
+        working-directory: flutter_app
+        run: flutter gen-l10n
 
       - name: Analyze Dart code
         working-directory: flutter_app
